@@ -1,0 +1,16 @@
+{
+    "contents" : "granplot <-\nfunction(x,xc=1,hist=TRUE,cum=TRUE,main=\"\",col.cum=\"red\",col.hist=\"gray\",cexname=0.9,cexlab=1.3,decreasing=FALSE) \n  {\n\n    x <- .grancompat(x)\n    x <- x[order(as.numeric(row.names(x)),decreasing=decreasing),]\n    \n#     x <- as.data.frame(x)    \n    um <- as.numeric(row.names(x))\n    if (pmatch(0,um)!=0 ) um[pmatch(0,um)]=\"<40\"\n    \n    \n    \nsum.sieve = sum(x[, xc])\nclass.weight = (x[, xc] * 100)/sum.sieve\nclass.weight.cum = round(cumsum(class.weight),2)\n\nif (hist == TRUE & cum == TRUE) {\n  par(mar = c(5, 4, 4, 4))\n  barplot(round(class.weight,2), xlab = \"Particule size (microns)\", \n          ylab = \"Weight (%)\", names.arg = um, las = 2, yaxt = \"n\", \n          main = main, col = col.hist,cex.names=cexname,font.lab=2,cex.lab=cexlab,ylim=c(0,100))\n\n  axis(4, at = seq(0, 100, 20), labels = seq(0, 100, 20), \n       las = 2, col = col.cum, col.axis = col.cum,cex.axis=cexname)\n  axis(2, at = seq(0, 100, 20), labels = seq(0, 100, 20), las = 2,cex.axis=cexname)\n  mtext(\"(% cum) \", 4, line = 2, col = col.cum,font=2,cex=cexlab)\n  lines(class.weight.cum, col = col.cum, lwd = 1)\n}\nif (hist == FALSE & cum == TRUE) {\n  plot(class.weight.cum, type = \"l\", lwd = 1, xlab = \"Particule size (microns)\", \n       ylab = \"Percentage cum.(%)\", las = 2, xaxt = \"n\", \n       xlim = c(0,length(x[, xc]) ), main = main, col = col.cum,cex.axis=cexname,font.lab=2,cex.lab=cexlab)\n\n  axis(1, at = 1:length(x[, xc]), labels = um, las = 2,cex.axis=cexname)\n}\nif (hist == TRUE & cum == FALSE) {\n  barplot(round(class.weight,2), xlab = \"Particule size (microns)\", ylab = \"Weight (g)\", \n          names.arg = um, las = 2, main = main, col = col.hist,cex.names=cexname,font.lab=2,cex.lab=cexlab)\n  \n}\n}\n",
+    "created" : 1397460567659.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3162486326",
+    "id" : "FAC95F48",
+    "lastKnownWriteTime" : 1397463721,
+    "path" : "D:/GALLON/package/G2Sd/R/granplot.R",
+    "project_path" : "R/granplot.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
